@@ -69,8 +69,8 @@ function handleJump(delta) {
 }
 
 // checking to start a jump
-function onJump(e) {
-    if (e.code !== "Space" || isJumping) return // this blocks input other than spacebar, and also blocks you from jumping if you are already jumping
+function onJump(input) {
+    if (input.code !== "Space" || isJumping) return // this blocks input other than spacebar, and also blocks you from jumping if you are already jumping
 
     yVelocity = JUMP_SPEED
     isJumping = true
