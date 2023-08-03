@@ -1,0 +1,74 @@
+/* this selects everything to set global css. box-sizing makes it easier to size everything, and user select makes it so that if a user click and drags, it does not highlight anything on the page */
+*, *::before, *::after {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+/* get rid of all margins, center and align everything */
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* everything absolutely positioned inside world, overflow makes it so ground tiles don't throw off scaling with how big they are compared to other objects */
+.world {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+/* tucks our score in the corner, font scales with window size */
+/* vmin (or vmax) uses the smallest (or largest) out of screen width or height allowing the scale to adapt to screen and window sizes */
+.score {
+    position: absolute;
+    font-size: 3vmin;
+    right: 1vmin;
+    top: 1vmin;
+}
+
+/* positions our 'press key to start' and scales font with window size. */
+.start-screen {
+    position: absolute;
+    font-size: 5vmin;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* this is here so we can add and remove hide to our start screen later so it only shows when game is not active */
+.hide {
+    display: none;
+}
+
+/* positions ground tiles. the important bit here is --left, as this is what we access later to move the ground */
+/* using '--' in css denotes something as a custom property, allowing it to be used in other declarations using var() */
+.ground {
+    --left: 0;
+    position: absolute;
+    width: 300%;
+    bottom: 0;
+    left: calc(var(--left) * 1%)
+}
+
+/* here, we have a --bottom variable because the horizontal movement is constant with ground, but we want to be able to 'jump', which changes the height of our truck over time */
+.truck {
+    --bottom: 0;
+    position: absolute;
+    left: 1%;
+    height: 30%;
+    bottom: calc(var(--bottom) * 1%);
+    scale: 30%;
+}
+
+/* this is generated similarly to our ground, worth noting that we don't assign --left here because we want it in-sync and moving at the same pace as our ground */
+.obstacle {
+    position: absolute;
+    left: calc(var(--left) * 1%);
+    height: 30%;
+    bottom: 0;
+    scale:70%;
+}
